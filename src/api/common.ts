@@ -5,6 +5,6 @@ import { ILoginInfo } from './types/common'
 export const getLoginInfo = () => {
   return request<ILoginInfo>({
     method: 'GET',
-    url: '/login/info'
+    url: '/api/login/info'
   })
 }
