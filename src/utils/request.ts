@@ -1,7 +1,7 @@
 import axios, { AxiosRequestConfig } from 'axios'
 
 const request = axios.create({
-  baseURL: 'https://www.fastmock.site/mock/4d55240aee5d7124bf3b97c3bfae7a56/api'
+  baseURL: import.meta.env.VITE_API_BASEURL
 })
 
 // 请求拦截器
