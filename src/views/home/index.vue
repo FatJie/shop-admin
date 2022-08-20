@@ -2,18 +2,11 @@
   <h1>首页</h1>
   <div>{{ store.state.count }}</div>
   <div>{{ $store.state.count }}</div>
-  <el-date-picker
-    v-model="value1"
-    type="date"
-    placeholder="Pick a day"
-  />
 </template>
 
 <script lang="ts" setup>
 import { useStore } from '../../store'
 import User from '@/api/user'
-
-const value1 = ''
 
 console.log(User)
 
