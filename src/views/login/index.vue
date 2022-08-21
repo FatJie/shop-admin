@@ -104,7 +104,10 @@ const handleSubmit = async () => {
   const loginData = await login(user).finally(() => {
     loading.value = true
   })
-  store.commit('setUser', loginData.user_info)
+  store.commit('setUser', {
+    ...loginData.user_info,
+    token: loginData.token
+  })
   router.replace({
     name: 'home'
   })

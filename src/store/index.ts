@@ -5,7 +5,7 @@ import { setItem, getItem } from '@/utils/storage'
 import { USER } from '@/utils/constants'
 
 const state = {
-  user: getItem<TUserInfo>(USER)
+  user: getItem<{ token: string } & TUserInfo>(USER)
   // user: JSON.parse(window.localStorage.getItem('user') || 'null') as TUserInfo | null
 }
 
