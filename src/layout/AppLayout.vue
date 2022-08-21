@@ -6,7 +6,10 @@
     <el-container>
       <el-header>
         <Breadcrumb />
-        <FullScreen />
+        <div class="el-header-div">
+          <FullScreen />
+          <UserInfo />
+        </div>
       </el-header>
       <el-main>
         <!-- 子路由出口 -->
@@ -19,6 +22,7 @@
 import AppMenu from './AppMenu/index.vue'
 import FullScreen from './AppHeader/FullScreen.vue'
 import Breadcrumb from './AppHeader/Breadcrumb.vue'
+import UserInfo from './AppHeader/UserInfo.vue'
 </script>
 
 <style lang='scss' scoped>
@@ -39,5 +43,11 @@ import Breadcrumb from './AppHeader/Breadcrumb.vue'
 }
 .el-container {
   height: 100vh;
+}
+.el-header-div{
+  width: 120px;
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
 }
 </style>

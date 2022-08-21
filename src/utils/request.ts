@@ -1,4 +1,5 @@
 import axios, { AxiosRequestConfig } from 'axios'
+import { ElMessage } from 'element-plus'
 
 const request = axios.create({
   // baseURL: import.meta.env.VITE_API_BASEURL
@@ -15,6 +16,11 @@ request.interceptors.request.use((config) => {
 // 响应拦截器
 request.interceptors.response.use(res => {
   // 统一处理接口响应错误，列如token过期无效、服务端异常等...
+  if (res.data.status && res.data.status !== 200) {
+    ElMessage.error('请求失败，请重试')
+    // 手动返回异常终止程序
+    return Promise.reject(res.data)
+  }
   return res
 }, (error) => {
   return Promise.reject(error)
@@ -22,6 +28,6 @@ request.interceptors.response.use(res => {
 
 export default <T = any>(config: AxiosRequestConfig) => {
   return request(config).then(res => {
-    return res.data.data as T
+    return (res.data.data || res.data) as T
   })
 }

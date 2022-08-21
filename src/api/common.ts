@@ -1,10 +1,15 @@
 // 公共基础接口封装
 import request from '@/utils/request'
-import { ILoginInfo } from './types/common'
+import { TLoginResponse } from './types/common'
 
-export const getLoginInfo = () => {
-  return request<ILoginInfo>({
-    method: 'GET',
-    url: '/api/login/info'
+// 登录
+export const login = (data: {
+  account: string
+  pwd: string
+}) => {
+  return request<TLoginResponse>({
+    method: 'POST',
+    url: '/api/login',
+    data
   })
 }
