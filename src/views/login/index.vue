@@ -66,11 +66,12 @@
 <script lang="ts" setup>
 import { reactive, ref } from 'vue'
 import { login } from '@/api/common'
-import { useRouter } from 'vue-router'
+import { useRouter, useRoute } from 'vue-router'
 import { TElForm } from '@/types/element-plus'
 import { store } from '@/store'
 
 const router = useRouter()
+const route = useRoute()
 
 const user = reactive({
   account: 'admin',
@@ -108,9 +109,12 @@ const handleSubmit = async () => {
     ...loginData.user_info,
     token: loginData.token
   })
-  router.replace({
-    name: 'home'
-  })
+  // 获取当前路由实例对象路径
+  let redirect = route.query.redirect || '/'
+  if (typeof redirect !== 'string') {
+    redirect = '/'
+  }
+  router.replace(redirect)
   // 处理响应
 }
 
