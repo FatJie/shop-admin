@@ -8,7 +8,7 @@ export const getAdmins = (params: TListParams) => {
     list: Admin[]
   }>({
     method: 'GET',
-    url: '/setting/admin',
+    url: '/api/setting/admin',
     params
   })
 }
@@ -17,7 +17,7 @@ export const getAdmins = (params: TListParams) => {
 export const addAdmin = (data: TAddAdmin) => {
   return request({
     method: 'POST',
-    url: '/setting/admin',
+    url: '/api//setting/admin',
     data
   })
 }
@@ -26,7 +26,7 @@ export const addAdmin = (data: TAddAdmin) => {
 export const updateAdmin = (id: number, data: TAddAdmin) => {
   return request({
     method: 'PUT',
-    url: `/setting/admin/${id}`,
+    url: `/api//setting/admin/${id}`,
     data
   })
 }
@@ -35,7 +35,7 @@ export const updateAdmin = (id: number, data: TAddAdmin) => {
 export const deleteAdmin = (id: number) => {
   return request({
     method: 'DELETE',
-    url: `/setting/admin/${id}`
+    url: `/api//setting/admin/${id}`
   })
 }
 
@@ -43,6 +43,6 @@ export const deleteAdmin = (id: number) => {
 export const updateAdminStatus = (id: number, status: number) => {
   return request({
     method: 'PUT',
-    url: `/setting/admin/${id}/${status}`
+    url: `/api//setting/admin/${id}/${status}`
   })
 }

@@ -16,8 +16,6 @@ import { useRouter } from 'vue-router'
 
 const router = useRouter()
 
-console.log(router.currentRoute.value.matched)
-
 const routes = computed(() => {
   return router.currentRoute.value.matched.filter(item => item.meta.title)
 })
