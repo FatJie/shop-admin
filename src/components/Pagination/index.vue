@@ -27,7 +27,7 @@
 // })
 
 // 指定 Props ts类型 方法二
-import { PropType } from 'vue'
+// import { PropType } from 'vue'
 const props = defineProps({
   page: {
     type: Number,
@@ -44,11 +44,11 @@ const props = defineProps({
   loadList: {
     type: Function,
     default: () => {}
-  },
-  obj: {
-    required: true,
-    type: Object as PropType<{ a: string, b: string }>
   }
+  // obj: {
+  //   required: true,
+  //   type: Object as PropType<{ a: string, b: string }>
+  // }
 })
 
 // 指定 emit ts类型
