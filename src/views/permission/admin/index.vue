@@ -48,13 +48,14 @@
     </el-form>
   </el-card>
   <el-card :body-style="{ padding: '10px' }">
-    <!-- <template #header>
-        <el-button
-          type="primary"
-        >
-          添加管理员
-        </el-button>
-      </template> -->
+    <template #header>
+      <el-button
+        type="primary"
+        @click="formVis = true"
+      >
+        添加管理员
+      </el-button>
+    </template>
     <el-table
       :data="list"
       stripe
@@ -107,7 +108,7 @@
             :active-value="1"
             :inactive-value="0"
             :loading="scope.row.statusLoading"
-            @change="handleStatusChange(scope.row)"
+            @change="handleStatusChange(scope.row.status)"
           />
         </template>
       </el-table-column>
@@ -126,7 +127,7 @@
             @confirm="handleDelete(scope.row.id)"
           >
             <template #reference>
-              <el-button>
+              <el-button type="danger">
                 删除
               </el-button>
             </template>
@@ -142,6 +143,12 @@
     :load-list="loadList"
     :disabled="listLoading"
   />
+
+  <admin-form
+    v-model="formVis"
+    v-model:admin-id="adminId"
+    @submit-success="handleFormSuccess"
+  />
 </template>
 
 <script lang="ts" setup>
@@ -149,10 +156,14 @@ import { ref, reactive, onMounted } from 'vue'
 import type { TListParams, Admin } from '@/api/types/admin'
 import { getAdmins } from '@/api/admin'
 import AppPagination from '@/components/Pagination/index.vue'
+import { ElMessage } from 'element-plus'
+import AdminForm from './AdminForm.vue'
 
 onMounted(() => {
   loadList()
 })
+
+const formVis = ref(false)
 
 const listLoading = ref(true)
 
@@ -183,17 +194,34 @@ const handleQuery = async () => {
 }
 
 // 状态切换
-const handleStatusChange = (row: any) => {
-  console.log(row)
+const handleStatusChange = (value: number) => {
+  listLoading.value = true
+  const interval = setInterval(() => {
+    listLoading.value = false
+    clearInterval(interval)
+  }, 2000)
 }
 
 // 编辑
-const handleUpdate = (id: any) => {
-  console.log(id)
+const adminId = ref<number | null>(null)
+const handleUpdate = (id: number) => {
+  adminId.value = id
+  formVis.value = true
 }
 
 // 删除
-const handleDelete = (id: any) => {
-  console.log(id)
+const handleDelete = (id: number) => {
+  list.value.forEach((item, index) => {
+    if (item.id === id) {
+      list.value.splice(index, 1)
+      ElMessage.success('删除成功')
+    }
+  })
+}
+
+// 提交表单成功后响应子组件自定义事件(关闭弹框并重载列表)
+const handleFormSuccess = () => {
+  formVis.value = false
+  loadList()
 }
 </script>
