@@ -11,6 +11,7 @@
       ref="form"
       :model="listParams"
       @submit.prevent="handleQuery"
+      :disabled="listLoading"
     >
       <el-form-item label="状态">
         <el-select
@@ -58,6 +59,7 @@
       :data="list"
       stripe
       style="width: 100%"
+      v-loading="listLoading"
     >
       <el-table-column
         prop="id"
@@ -138,6 +140,7 @@
     v-model:page="listParams.page"
     :list-count="listCount"
     :load-list="loadList"
+    :disabled="listLoading"
   />
 </template>
 
@@ -150,6 +153,8 @@ import AppPagination from '@/components/Pagination/index.vue'
 onMounted(() => {
   loadList()
 })
+
+const listLoading = ref(true)
 
 const listCount = ref(8)
 
@@ -164,8 +169,11 @@ const listParams = reactive({ // 列表数据查询参数
 
 // 初始化管理员列表
 const loadList = async () => {
+  listLoading.value = false
   getAdmins(listParams).then(res => {
     list.value = res.list
+  }).finally(() => {
+    listLoading.value = false
   })
 }
 
